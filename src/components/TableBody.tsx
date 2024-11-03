@@ -36,7 +36,7 @@ export default function TableBody({ isCollapsed, features, setIsCollapsed, toggl
               <input
                 type="checkbox"
                 defaultChecked
-                className="h-4 w-4 rounded border-gray-300"
+                className="h-4 w-4 rounded text-green-500 checked:text-green-500 checked:border-green-500 focus:ring-0"
               />
               <span>Gösterge Paneli</span>
             </div>
@@ -60,27 +60,27 @@ export default function TableBody({ isCollapsed, features, setIsCollapsed, toggl
               <input
                 type="checkbox"
                 defaultChecked
-                className="h-4 w-4 rounded border-gray-300"
+                className="h-4 w-4 rounded text-green-500 checked:text-green-500 checked:border-green-500 focus:ring-0"
               />
               <span>Bulut Santral</span>
               <div className="flex flex-1 grid-cols-5 px-32 justify-between">
                 <input
                   type="checkbox"
                   defaultChecked
-                  className="h-4 w-4 rounded border-gray-300"
+                  className="h-4 w-4 rounded text-green-500 checked:text-green-500 checked:border-green-500 focus:ring-0"
                 />
                 <input
                   type="checkbox"
-                  className="h-4 w-4 rounded border-gray-300"
+                  className="h-4 w-4 rounded text-green-500 checked:text-green-500 checked:border-green-500 focus:ring-0"
                 />
                 <input
                   type="checkbox"
                   defaultChecked
-                  className="h-4 w-4 rounded border-gray-300"
+                  className="h-4 w-4 rounded text-green-500 checked:text-green-500 checked:border-green-500 focus:ring-0"
                 />
                 <input
                   type="checkbox"
-                  className="h-4 w-4 rounded border-gray-300"
+                  className="h-4 w-4 rounded text-green-500 checked:text-green-500 checked:border-green-500 focus:ring-0"
                 />
               </div>
             </div>
