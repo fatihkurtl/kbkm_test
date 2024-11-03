@@ -1,6 +1,6 @@
-import { Feature } from "../interface";
+import { IFeature } from "../interface";
 
-export const FEATURES: Feature[][] = [
+export const FEATURES: IFeature[][] = [
   [
     { id: "1", name: "Çağrı Ses Kaydı", state: "right" },
     { id: "2", name: "Mesai Saatleri Ayarlaması", state: "middle" },
