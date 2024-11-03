@@ -6,7 +6,7 @@ export default function TableHead() {
           <div className="flex items-center gap-2">
             <input
               type="checkbox"
-              className="h-4 w-4 rounded text-green-500 checked:text-green-500 checked:border-green-500 focus:ring-0"
+              className="h-4 w-4 rounded text-[#00C875] checked:text-[#00C875] checked:border-[#00C875] focus:ring-0"
             />
             <span className="text-sm font-medium">Modüller</span>
           </div>
@@ -16,7 +16,7 @@ export default function TableHead() {
             <input
               type="checkbox"
               defaultChecked
-              className="h-4 w-4 rounded text-green-500 checked:text-green-500 checked:border-green-500 focus:ring-0"
+              className="h-4 w-4 rounded text-[#00C875] checked:text-[#00C875] checked:border-[#00C875] focus:ring-0"
             />
             <span className="text-sm font-medium">Görebilir</span>
           </div>
@@ -25,7 +25,7 @@ export default function TableHead() {
           <div className="flex items-center gap-2">
             <input
               type="checkbox"
-              className="h-4 w-4 rounded text-green-500 checked:text-green-500 checked:border-green-500 focus:ring-0"
+              className="h-4 w-4 rounded text-[#00C875] checked:text-[#00C875] checked:border-[#00C875] focus:ring-0"
             />
             <span className="text-sm font-medium">Oluşturabilir</span>
           </div>
@@ -34,7 +34,7 @@ export default function TableHead() {
           <div className="flex items-center gap-2">
             <input
               type="checkbox"
-              className="h-4 w-4 rounded text-green-500 checked:text-green-500 checked:border-green-500 focus:ring-0"
+              className="h-4 w-4 rounded text-[#00C875] checked:text-[#00C875] checked:border-[#00C875] focus:ring-0"
             />
             <span className="text-sm font-medium">Düzenleyebilir</span>
           </div>
@@ -43,7 +43,7 @@ export default function TableHead() {
           <div className="flex items-center gap-2">
             <input
               type="checkbox"
-              className="h-4 w-4 rounded text-green-500 checked:text-green-500 checked:border-green-500 focus:ring-0"
+              className="h-4 w-4 rounded text-[#00C875] checked:text-[#00C875] checked:border-[#00C875] focus:ring-0"
             />
             <span className="text-sm font-medium">Silebilir</span>
           </div>

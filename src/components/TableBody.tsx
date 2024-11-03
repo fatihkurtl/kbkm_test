@@ -6,12 +6,22 @@ import Status from "./Status";
 interface TableBodyProps {
   features: IFeature[][];
   isCollapsed: { gosterge: boolean; bulut: boolean };
-  setIsCollapsed: React.Dispatch<React.SetStateAction<{ gosterge: boolean; bulut: boolean }>>;
+  setIsCollapsed: React.Dispatch<
+    React.SetStateAction<{ gosterge: boolean; bulut: boolean }>
+  >;
   toggleFeature: (columnIndex: number, featureId: string) => void;
   getStateColor: (state: string) => string;
+  getSwitchColor: (state: string) => string;
 }
 
-export default function TableBody({ isCollapsed, features, setIsCollapsed, toggleFeature, getStateColor }: TableBodyProps) {
+export default function TableBody({
+  isCollapsed,
+  features,
+  setIsCollapsed,
+  toggleFeature,
+  getStateColor,
+  getSwitchColor,
+}: TableBodyProps) {
   return (
     <tbody>
       <tr>
@@ -36,7 +46,7 @@ export default function TableBody({ isCollapsed, features, setIsCollapsed, toggl
               <input
                 type="checkbox"
                 defaultChecked
-                className="h-4 w-4 rounded text-green-500 checked:text-green-500 checked:border-green-500 focus:ring-0"
+                className="h-4 w-4 rounded text-[#00C875] checked:text-[#00C875] checked:border-[#00C875] focus:ring-0"
               />
               <span>Gösterge Paneli</span>
             </div>
@@ -60,27 +70,27 @@ export default function TableBody({ isCollapsed, features, setIsCollapsed, toggl
               <input
                 type="checkbox"
                 defaultChecked
-                className="h-4 w-4 rounded text-green-500 checked:text-green-500 checked:border-green-500 focus:ring-0"
+                className="h-4 w-4 rounded text-[#00C875] checked:text-[#00C875] checked:border-[#00C875] focus:ring-0"
               />
               <span>Bulut Santral</span>
               <div className="flex flex-1 grid-cols-5 px-32 justify-between">
                 <input
                   type="checkbox"
                   defaultChecked
-                  className="h-4 w-4 rounded text-green-500 checked:text-green-500 checked:border-green-500 focus:ring-0"
+                  className="h-4 w-4 rounded text-[#00C875] checked:text-[#00C875] checked:border-[#00C875] focus:ring-0"
                 />
                 <input
                   type="checkbox"
-                  className="h-4 w-4 rounded text-green-500 checked:text-green-500 checked:border-green-500 focus:ring-0"
+                  className="h-4 w-4 rounded text-[#00C875] checked:text-[#00C875] checked:border-[#00C875] focus:ring-0"
                 />
                 <input
                   type="checkbox"
                   defaultChecked
-                  className="h-4 w-4 rounded text-green-500 checked:text-green-500 checked:border-green-500 focus:ring-0"
+                  className="h-4 w-4 rounded text-[#00C875] checked:text-[#00C875] checked:border-[#00C875] focus:ring-0"
                 />
                 <input
                   type="checkbox"
-                  className="h-4 w-4 rounded text-green-500 checked:text-green-500 checked:border-green-500 focus:ring-0"
+                  className="h-4 w-4 rounded text-[#00C875] checked:text-[#00C875] checked:border-[#00C875] focus:ring-0"
                 />
               </div>
             </div>
@@ -111,13 +121,13 @@ export default function TableBody({ isCollapsed, features, setIsCollapsed, toggl
                                   )}`}
                                 />
                                 <div
-                                  className={`absolute top-0.5 left-0.5 h-4 w-4 transform rounded-full bg-white shadow-md transition-all duration-200 ease-in-out ${
+                                  className={`absolute top-0.5 left-0.5 h-4 w-4 transform rounded-full shadow-md transition-all duration-200 ease-in-out ${
                                     feature.state === "left"
                                       ? "translate-x-0"
                                       : feature.state === "middle"
                                       ? "translate-x-2"
                                       : "translate-x-5"
-                                  }`}
+                                  } ${getSwitchColor(feature.state)}`}
                                 />
                               </button>
                               <span className="text-sm">{feature.name}</span>

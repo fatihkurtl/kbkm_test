@@ -15,6 +15,19 @@ function App() {
   const getStateColor = (state: string) => {
     switch (state) {
       case "left":
+        return "bg-[#FF8C93]";
+      case "middle":
+        return "bg-[#FFDFA9]";
+      case "right":
+        return "bg-[#BFF9E1]";
+      default:
+        return "bg-gray-200";
+    }
+  };
+
+  const getSwitchColor = (state: string) => {
+    switch (state) {
+      case "left":
         return "bg-[#E31E24]";
       case "middle":
         return "bg-[#FDAB3D]";
@@ -70,9 +83,15 @@ function App() {
           <div className="rounded-lg bg-white p-6 shadow-sm">
             <table className="w-full">
               <TableHead />
-              <TableBody features={features} isCollapsed={isCollapsed} setIsCollapsed={setIsCollapsed} toggleFeature={toggleFeature} getStateColor={getStateColor} />
+              <TableBody
+                features={features}
+                isCollapsed={isCollapsed}
+                setIsCollapsed={setIsCollapsed}
+                toggleFeature={toggleFeature}
+                getStateColor={getStateColor}
+                getSwitchColor={getSwitchColor}
+              />
             </table>
-            
           </div>
         </div>
       </div>
