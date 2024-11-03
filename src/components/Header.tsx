@@ -1,76 +1,112 @@
-import { useState } from 'react';
-import { CalendarDays, ChevronDown, Edit, Plus, Search } from 'lucide-react';
+import { useState } from "react";
+import {
+  CalendarDays,
+  ChevronDown,
+  CirclePlus,
+  Edit,
+  Filter,
+  Search,
+  SquareCheckBig,
+} from "lucide-react";
+import DatePicker from "react-datepicker";
+
+import "react-datepicker/dist/react-datepicker.css";
 
 export default function Header() {
-  const [selectedGroup, setSelectedGroup] = useState('Satış Grubu');
-  const [isDropdownOpen, setIsDropdownOpen] = useState(false);
-  const [searchQuery, setSearchQuery] = useState('');
-
-  return (
-    <div className="flex flex-col md:flex-row items-center justify-between bg-[#F5F5FF] p-4 space-y-4 md:space-y-0">
-      <div className="flex items-center gap-3">
-        <h1 className="text-2xl font-semibold text-gray-900">Grup Yetkileri</h1>
-
-        <div className="relative flex items-center rounded-full bg-white shadow-sm border border-gray-300">
-          <button
-            className="flex items-center gap-2 px-4 py-2 text-sm font-medium rounded-l-full focus:outline-none"
-            onClick={() => setIsDropdownOpen(!isDropdownOpen)}
-          >
-            {selectedGroup}
-            <ChevronDown className="h-4 w-4 text-gray-600" />
-          </button>
-
-          <button className="px-3 py-2 text-white bg-[#8751DC] rounded-r-full hover:bg-[#6e41b5] transition duration-150 focus:outline-none">
-            <Plus className="h-5 w-5" />
-          </button>
-
-          {isDropdownOpen && (
-            <div className="absolute z-10 mt-32 w-full rounded-md bg-white shadow-lg border border-gray-200">
-              <div className="py-1">
-                {['Satış Grubu', 'Destek Grubu'].map((group) => (
-                  <button
-                    key={group}
-                    className="block w-full px-4 py-2 text-left text-sm hover:bg-gray-100"
-                    onClick={() => {
-                      setSelectedGroup(group);
-                      setIsDropdownOpen(false);
-                    }}
-                  >
-                    {group}
-                  </button>
-                ))}
-              </div>
+    const [selectedGroup, setSelectedGroup] = useState("Satış Grubu");
+    const [isDropdownOpen, setIsDropdownOpen] = useState(false);
+    const [searchQuery, setSearchQuery] = useState("");
+    const [isDatePickerOpen, setIsDatePickerOpen] = useState(false);
+    const [selectedDate, setSelectedDate] = useState<Date | null>(null);
+  
+    return (
+      <>
+        <div className="flex flex-col md:flex-row items-center justify-between bg-[#F5F5FF] p-4 space-y-4 md:space-y-0">
+          <div className="flex items-center gap-3">
+            <h1 className="text-2xl font-semibold text-gray-900">
+              Grup Yetkileri
+            </h1>
+  
+            <div className="relative flex items-center rounded-l-full bg-white">
+              <button
+                className="flex items-center gap-2 px-4 py-2 text-sm font-medium focus:outline-none"
+                onClick={() => setIsDropdownOpen(!isDropdownOpen)}
+              >
+                {selectedGroup}
+                <ChevronDown className="h-4 w-4 text-gray-600" />
+              </button>
+  
+              <button className="px-3 py-2 text-[#8751DC] bg-[#E6E6FF] rounded-r-full hover:bg-[#6e41b5] hover:text-white transition duration-150 focus:outline-none">
+                <CirclePlus className="h-5 w-5" />
+              </button>
+  
+              {isDropdownOpen && (
+                <div className="absolute z-10 mt-32 w-full rounded-md bg-white shadow-lg border border-gray-200">
+                  <div className="py-1">
+                    {["Satış Grubu", "Destek Grubu"].map((group) => (
+                      <button
+                        key={group}
+                        className="block w-full px-4 py-2 text-left text-sm hover:bg-gray-100"
+                        onClick={() => {
+                          setSelectedGroup(group);
+                          setIsDropdownOpen(false);
+                        }}
+                      >
+                        {group}
+                      </button>
+                    ))}
+                  </div>
+                </div>
+              )}
             </div>
-          )}
+          </div>
+  
+          <div className="flex items-center gap-0">
+            <button className="flex gap-2 px-4 py-2 items-center text-[#8751DC] bg-[#E6E6FF] rounded-l-full hover:bg-[#6e41b5] hover:text-white transition duration-150 focus:outline-none border border-gray-300 border-l-0">
+              <Filter className="h-4 w-4" />
+              Filtrele
+            </button>
+            <div className="flex items-center bg-white border border-gray-300 px-4 py-2 w-full md:w-64">
+              <input
+                type="text"
+                value={searchQuery}
+                onChange={(e) => setSearchQuery(e.target.value)}
+                className="flex-grow focus:outline-none"
+              />
+              <Search className="h-5 w-5 text-gray-400 ml-2" />
+            </div>
+            <button
+              onClick={() => setIsDatePickerOpen(!isDatePickerOpen)}
+              className="px-4 py-2 text-[#8751DC] bg-[#E6E6FF] rounded-r-full hover:bg-[#6e41b5] hover:text-white transition duration-150 focus:outline-none border border-gray-300 border-l-0"
+            >
+              <CalendarDays className="h-6 w-5" />
+            </button>
+  
+            {isDatePickerOpen && (
+              <div className="absolute z-10 mt-72 ml-44">
+                <DatePicker
+                  selected={selectedDate}
+                  onChange={(date) => {
+                    setSelectedDate(date);
+                    setIsDatePickerOpen(false);
+                  }}
+                  inline
+                />
+              </div>
+            )}
+          </div>
         </div>
-      </div>
-
-      <div className="flex items-center gap-4">
-        <div className="flex items-center bg-white border border-gray-300 rounded-full px-4 py-2 w-full md:w-64">
-          <Search className="h-5 w-5 text-gray-600 mr-2" />
-          <input
-            type="text"
-            placeholder="Ara..."
-            value={searchQuery}
-            onChange={(e) => setSearchQuery(e.target.value)}
-            className="flex-grow focus:outline-none"
-          />
-          <button className="ml-2">
-            <CalendarDays className="h-5 w-5 text-gray-600" />
-          </button>
-        </div>
-
-        <div className="flex items-center gap-3">
+        <div className="flex items-center gap-3 mr-4 justify-end">
           <button className="flex items-center gap-2 rounded-full bg-white px-4 py-2 text-sm font-medium text-[#8751DC] shadow-sm border border-gray-300 hover:bg-gray-100 transition duration-150">
             <span>Düzenle</span>
-            <Edit className="h-4 w-4" />
+            <Edit className="h-4 w-4 text-[#8751DC]" />
           </button>
-
-          <button className="rounded-full bg-[#8751DC] px-6 py-2 text-sm font-medium text-white shadow-sm hover:bg-[#6e41b5] transition duration-150">
+  
+          <button className="flex items-center gap-2 rounded-full bg-[#8751DC] px-6 py-2 text-sm font-medium text-white shadow-sm hover:bg-[#6e41b5] transition duration-150">
             Kaydet
+            <SquareCheckBig className="h-4 w-4" />
           </button>
         </div>
-      </div>
-    </div>
-  );
-}
+      </>
+    );
+  }
