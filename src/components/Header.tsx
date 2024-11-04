@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useRef, useEffect } from "react"
 import {
   CalendarDays,
   ChevronDown,
@@ -7,17 +7,51 @@ import {
   Filter,
   Search,
   SquareCheckBig,
-} from "lucide-react";
-import DatePicker from "react-datepicker";
+} from "lucide-react"
+import DatePicker from "react-datepicker"
+import "react-datepicker/dist/react-datepicker.css"
 
-import "react-datepicker/dist/react-datepicker.css";
+const useDropdown = () => {
+  const [options, setOptions] = useState(false)
+  const optionsElement = useRef<HTMLDivElement>(null)
+
+  const toggleDropdown = (): void => {
+    setOptions(!options)
+  }
+
+  useEffect(() => {
+    const handleClickOutside = (event: MouseEvent) => {
+      if (
+        optionsElement.current &&
+        !optionsElement.current.contains(event.target as Node)
+      ) {
+        setOptions(false)
+      }
+    }
+
+    if (options) {
+      document.addEventListener("mousedown", handleClickOutside)
+      return () => {
+        document.removeEventListener("mousedown", handleClickOutside)
+      }
+    }
+  }, [options])
+
+  return { toggleDropdown, options, setOptions, optionsElement }
+}
 
 export default function Header() {
-  const [selectedGroup, setSelectedGroup] = useState("Satış Grubu");
-  const [isDropdownOpen, setIsDropdownOpen] = useState(false);
-  const [searchQuery, setSearchQuery] = useState("");
-  const [isDatePickerOpen, setIsDatePickerOpen] = useState(false);
-  const [selectedDate, setSelectedDate] = useState<Date | null>(null);
+  const { toggleDropdown, options, setOptions, optionsElement } = useDropdown()
+
+  const [selectedGroup, setSelectedGroup] = useState("Satış Grubu")
+  const [searchQuery, setSearchQuery] = useState("")
+  const [isDatePickerOpen, setIsDatePickerOpen] = useState(false)
+  const [selectedDate, setSelectedDate] = useState<Date | null>(null)
+
+  const handleGroupSelection = (group: string) => {
+    setSelectedGroup(group)
+    setOptions(false)
+  }
 
   return (
     <>
@@ -27,12 +61,13 @@ export default function Header() {
             Grup Yetkileri
           </h1>
 
-          <div className="relative flex items-center rounded-l-full">
+          <div ref={optionsElement} className="relative flex items-center rounded-l-full w-64">
             <button
-              className="flex items-center gap-2 px-4 py-2 text-sm font-medium focus:outline-none bg-white rounded-l-full"
-              onClick={() => setIsDropdownOpen(!isDropdownOpen)}
+              className="flex items-center justify-between w-full px-4 py-2 text-sm font-medium focus:outline-none bg-white rounded-l-full"
+              aria-expanded={options ? "true" : "false"}
+              onClick={toggleDropdown}
             >
-              {selectedGroup}
+              <span>{selectedGroup}</span>
               <ChevronDown className="h-4 w-4 text-gray-600" />
             </button>
 
@@ -40,17 +75,14 @@ export default function Header() {
               <CirclePlus className="h-5 w-5" />
             </button>
 
-            {isDropdownOpen && (
-              <div className="absolute z-10 mt-32 w-full rounded-md bg-white shadow-lg border border-gray-200">
+            {options && (
+              <div className="absolute z-10 top-full left-0 mt-1 w-64 rounded-md bg-white shadow-lg border border-gray-200">
                 <div className="py-1">
-                  {["Satış Grubu", "Destek Grubu"].map((group) => (
+                  {["Satış Grubu", "Destek Grubu", "Müşteri Hizmetleri", "Teknik Ekip", "Yönetim", "İnsan Kaynakları"].map((group) => (
                     <button
                       key={group}
                       className="block w-full px-4 py-2 text-left text-sm hover:bg-gray-100"
-                      onClick={() => {
-                        setSelectedGroup(group);
-                        setIsDropdownOpen(false);
-                      }}
+                      onClick={() => handleGroupSelection(group)}
                     >
                       {group}
                     </button>
@@ -62,40 +94,39 @@ export default function Header() {
         </div>
 
         <div className="flex items-center gap-0">
-  <button className="flex gap-2 px-4 py-2 items-center text-[#8751DC] bg-[#E6E6FF] rounded-l-full hover:bg-[#6e41b5] hover:text-white transition duration-150 focus:outline-none border border-gray-300 border-l-0">
-    <Filter className="h-4 w-4" />
-    Filtrele
-  </button>
-  <div className="flex items-center bg-white border border-gray-300 px-2 py-1 w-48 md:w-64">
-    <input
-      type="text"
-      value={searchQuery}
-      onChange={(e) => setSearchQuery(e.target.value)}
-      className="flex-grow h-8 border-none focus:outline-none focus:ring-0 focus:border-none" // Odaklandığında border ve outline yok
-    />
-    <Search className="h-5 w-5 text-gray-400 ml-2" />
-  </div>
-  <button
-    onClick={() => setIsDatePickerOpen(!isDatePickerOpen)}
-    className="px-4 py-2 text-[#8751DC] bg-[#E6E6FF] rounded-r-full hover:bg-[#6e41b5] hover:text-white transition duration-150 focus:outline-none border border-gray-300 border-l-0"
-  >
-    <CalendarDays className="h-6 w-5" />
-  </button>
+          <button className="flex gap-2 px-4 py-2 items-center text-[#8751DC] bg-[#E6E6FF] rounded-l-full hover:bg-[#6e41b5] hover:text-white transition duration-150 focus:outline-none border border-gray-300 border-l-0">
+            <Filter className="h-4 w-4" />
+            Filtrele
+          </button>
+          <div className="flex items-center bg-white border border-gray-300 px-2 py-1 w-48 md:w-64">
+            <input
+              type="text"
+              value={searchQuery}
+              onChange={(e) => setSearchQuery(e.target.value)}
+              className="flex-grow h-8 border-none focus:outline-none focus:ring-0 focus:border-none"
+            />
+            <Search className="h-5 w-5 text-gray-400 ml-2" />
+          </div>
+          <button
+            onClick={() => setIsDatePickerOpen(!isDatePickerOpen)}
+            className="px-4 py-2 text-[#8751DC] bg-[#E6E6FF] rounded-r-full hover:bg-[#6e41b5] hover:text-white transition duration-150 focus:outline-none border border-gray-300 border-l-0"
+          >
+            <CalendarDays className="h-6 w-5" />
+          </button>
 
-  {isDatePickerOpen && (
-    <div className="absolute z-10 mt-72 ml-44">
-      <DatePicker
-        selected={selectedDate}
-        onChange={(date) => {
-          setSelectedDate(date);
-          setIsDatePickerOpen(false);
-        }}
-        inline
-      />
-    </div>
-  )}
-</div>
-
+          {isDatePickerOpen && (
+            <div className="absolute z-10 mt-72 ml-44">
+              <DatePicker
+                selected={selectedDate}
+                onChange={(date) => {
+                  setSelectedDate(date)
+                  setIsDatePickerOpen(false)
+                }}
+                inline
+              />
+            </div>
+          )}
+        </div>
       </div>
       <div className="flex items-center gap-3 mr-4 justify-end">
         <button className="flex items-center gap-2 rounded-full bg-white px-4 py-2 text-sm font-medium text-[#8751DC] shadow-sm border border-gray-300 hover:bg-gray-100 transition duration-150">
@@ -109,5 +140,5 @@ export default function Header() {
         </button>
       </div>
     </>
-  );
+  )
 }
