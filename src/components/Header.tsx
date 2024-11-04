@@ -1,4 +1,4 @@
-import { useState, useRef, useEffect } from "react"
+import { useState, useRef, useEffect } from 'react'
 import {
   CalendarDays,
   ChevronDown,
@@ -7,9 +7,10 @@ import {
   Filter,
   Search,
   SquareCheckBig,
-} from "lucide-react"
-import DatePicker from "react-datepicker"
-import "react-datepicker/dist/react-datepicker.css"
+} from 'lucide-react'
+import DatePicker, { registerLocale, setDefaultLocale } from 'react-datepicker'
+import 'react-datepicker/dist/react-datepicker.css'
+import { tr } from 'date-fns/locale'
 
 const useDropdown = () => {
   const [options, setOptions] = useState(false)
@@ -39,6 +40,9 @@ const useDropdown = () => {
 
   return { toggleDropdown, options, setOptions, optionsElement }
 }
+
+registerLocale('tr', tr)
+setDefaultLocale('tr')
 
 export default function Header() {
   const { toggleDropdown, options, setOptions, optionsElement } = useDropdown()
@@ -123,6 +127,7 @@ export default function Header() {
                   setIsDatePickerOpen(false)
                 }}
                 inline
+                locale="tr"
               />
             </div>
           )}
