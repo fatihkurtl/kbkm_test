@@ -27,9 +27,9 @@ export default function Header() {
             Grup Yetkileri
           </h1>
 
-          <div className="relative flex items-center rounded-l-full bg-white">
+          <div className="relative flex items-center rounded-l-full">
             <button
-              className="flex items-center gap-2 px-4 py-2 text-sm font-medium focus:outline-none"
+              className="flex items-center gap-2 px-4 py-2 text-sm font-medium focus:outline-none bg-white rounded-l-full"
               onClick={() => setIsDropdownOpen(!isDropdownOpen)}
             >
               {selectedGroup}
