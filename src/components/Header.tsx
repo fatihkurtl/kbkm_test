@@ -59,7 +59,7 @@ export default function Header() {
 
   return (
     <>
-      <div className="flex flex-col md:flex-row items-center justify-between bg-[#F5F5FF] p-4 space-y-4 md:space-y-0">
+      <div className="flex flex-col md:flex-row items-center justify-between p-4 space-y-4 md:space-y-0">
         <div className="flex items-center gap-3">
           <h1 className="text-2xl font-semibold text-gray-900">
             Grup Yetkileri
